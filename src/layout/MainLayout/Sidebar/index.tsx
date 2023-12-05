@@ -33,14 +33,7 @@ const Sidebar = () => {
 
     const { layout, drawerType } = useConfig();
 
-    const logo = useMemo(
-        () => (
-            <Box sx={{ display: 'flex', p: 2 }}>
-                <LogoSection />
-            </Box>
-        ),
-        []
-    );
+    const logo = useMemo(() => <Box sx={{ display: 'flex', p: 2 }}>{<LogoSection />}</Box>, []);
 
     const drawer = useMemo(
         () => (

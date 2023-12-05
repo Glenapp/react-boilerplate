@@ -20,17 +20,17 @@ import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
 
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteTwoTone';
 import { DEFAULT_PAGE_SIZE, INITIAL_PAGE, ROWS_PER_PAGE_OPTIONS } from 'constant';
-import CreateSubAdminDialog from './Components/CreateSubAdminDialog';
-import UpdateSubAdminDialog from './Components/UpdateSubAdminDialog';
+import AddRolesDialog from './Components/AddRolesDialog';
+import UpdateRolesDialog from './Components/UpdateRolesDialog';
 import DeleteConfirmationDialog from 'ui-component/common/DeleteConfirmationDialog';
 
-const CreateSubAdminPage = () => {
+const RolesPage = () => {
     const [page, setPage] = useState<number>(INITIAL_PAGE);
 
+    const [rowsPerPage, setRowsPerPage] = useState<number>(DEFAULT_PAGE_SIZE);
     const [createDialogOpened, setCreateDialogOpened] = useState<boolean>(false);
     const [updateDialogOpened, setUpdateDialogOpened] = useState<any | null>(null);
     const [deleteDialogOpened, setDeleteDialogOpened] = useState<any | null>(null);
-    const [rowsPerPage, setRowsPerPage] = useState<number>(DEFAULT_PAGE_SIZE);
 
     const handleChangePage = (event: React.MouseEvent<HTMLButtonElement, MouseEvent> | null, newPage: number) => {
         setPage(newPage);
@@ -42,24 +42,23 @@ const CreateSubAdminPage = () => {
         setPage(0);
     };
 
-    async function createSubAdminAsync(data: any) {
+    async function addRolesAsync(data: any) {
         alert(JSON.stringify(data, null, 2));
         setCreateDialogOpened(false);
     }
 
-    async function updateSubAdminAsync(data: any) {
+    async function updateRolesAsync(data: any) {
         alert(JSON.stringify(data, null, 2));
         setCreateDialogOpened(false);
     }
 
-    async function deleteSubadminAsync(SubadminToDelete: any) {
+    async function deleteRolesAsync(data: any) {
         alert('delete');
     }
-
     return (
-        <>
+        <div>
             <CustomCard
-                title={'create Sub Admin'}
+                title={'Add Roles'}
                 sx={{
                     mb: '1.55rem',
                     p: 3,
@@ -69,7 +68,7 @@ const CreateSubAdminPage = () => {
                 }}
             >
                 <Typography fontWeight={500} fontSize={'1.125rem'}>
-                    {'Create Sub Admin'}
+                    {'Roles'}
                 </Typography>
                 <Button
                     color="secondary"
@@ -107,8 +106,7 @@ const CreateSubAdminPage = () => {
                     >
                         <TableHead>
                             <TableRow>
-                                <TableCell align="left">Admin name</TableCell>
-                                <TableCell align="left">Email</TableCell>
+                                <TableCell align="left">Role Name</TableCell>
                                 <TableCell align="left">Status</TableCell>
                                 <TableCell align="left">Created At</TableCell>
                                 <TableCell sx={{ pr: 2 }} align="right">
@@ -120,12 +118,7 @@ const CreateSubAdminPage = () => {
                             <TableRow>
                                 <TableCell scope="row" align="left">
                                     <Typography align="left" variant="subtitle1" component="div">
-                                        {'Alex'}
-                                    </Typography>
-                                </TableCell>
-                                <TableCell scope="row" align="left">
-                                    <Typography align="left" variant="subtitle1" component="div">
-                                        {'Alex@gmail.com'}
+                                        {'H R'}
                                     </Typography>
                                 </TableCell>
 
@@ -136,7 +129,7 @@ const CreateSubAdminPage = () => {
                                 </TableCell>
                                 <TableCell scope="row" align="left">
                                     <Typography align="left" variant="subtitle1" component="div">
-                                        {'05/11/23'}
+                                        {'05/12/23'}
                                     </Typography>
                                 </TableCell>
                                 <TableCell sx={{ whiteSpace: 'nowrap' }} align="right">
@@ -158,12 +151,7 @@ const CreateSubAdminPage = () => {
                             <TableRow>
                                 <TableCell scope="row" align="left">
                                     <Typography align="left" variant="subtitle1" component="div">
-                                        {'Author'}
-                                    </Typography>
-                                </TableCell>
-                                <TableCell scope="row" align="left">
-                                    <Typography align="left" variant="subtitle1" component="div">
-                                        {'Author@gmail.com'}
+                                        {'safety Manager'}
                                     </Typography>
                                 </TableCell>
 
@@ -188,7 +176,7 @@ const CreateSubAdminPage = () => {
 
                                     <SmallWidthTooltip title="Delete" placement="top" arrow>
                                         <IconButton>
-                                            <DeleteOutlineOutlinedIcon />
+                                            <DeleteOutlineOutlinedIcon onClick={() => setDeleteDialogOpened(true)} />
                                         </IconButton>
                                     </SmallWidthTooltip>
                                 </TableCell>
@@ -206,15 +194,15 @@ const CreateSubAdminPage = () => {
                     onRowsPerPageChange={handleChangeRowsPerPage}
                 />
             </MainCard>
-            <CreateSubAdminDialog
+            <AddRolesDialog
                 open={createDialogOpened}
                 handleClose={() => setCreateDialogOpened(false)}
-                onSubmit={(data: any) => createSubAdminAsync(data)}
+                onSubmit={(data: any) => addRolesAsync(data)}
             />
-            <UpdateSubAdminDialog
+            <UpdateRolesDialog
                 open={!!updateDialogOpened}
                 handleClose={() => setUpdateDialogOpened(null)}
-                onSubmit={(data: any) => updateSubAdminAsync(data)}
+                onSubmit={(data: any) => updateRolesAsync(data)}
                 details={updateDialogOpened || ({} as any)}
             />
             <DeleteConfirmationDialog
@@ -222,11 +210,11 @@ const CreateSubAdminPage = () => {
                 handleClose={() => {
                     setDeleteDialogOpened(null);
                 }}
-                deleteItem={deleteSubadminAsync}
+                deleteItem={deleteRolesAsync}
                 details={deleteDialogOpened || ({} as any)}
             />
-        </>
+        </div>
     );
 };
 
-export default CreateSubAdminPage;
+export default RolesPage;

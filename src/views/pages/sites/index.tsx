@@ -11,25 +11,24 @@ import {
     TableRow,
     Typography
 } from '@mui/material';
-import React, { useState } from 'react';
 import MainCard from 'ui-component/cards/MainCard';
 import CustomCard from 'ui-component/common/CustomCard';
 import SmallWidthTooltip from 'ui-component/common/SmallWidthTooltip';
 import Chip from 'ui-component/extended/Chip';
+
 import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
 
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteTwoTone';
 import { DEFAULT_PAGE_SIZE, INITIAL_PAGE, ROWS_PER_PAGE_OPTIONS } from 'constant';
-import CreateSubAdminDialog from './Components/CreateSubAdminDialog';
-import UpdateSubAdminDialog from './Components/UpdateSubAdminDialog';
-import DeleteConfirmationDialog from 'ui-component/common/DeleteConfirmationDialog';
+import { useState } from 'react';
+import CreateSiteDialog from './Components/CreateSiteDialog';
+import UpdateSiteDialog from './Components/UpdateSiteDialog';
 
-const CreateSubAdminPage = () => {
+const SitesPage = () => {
     const [page, setPage] = useState<number>(INITIAL_PAGE);
-
     const [createDialogOpened, setCreateDialogOpened] = useState<boolean>(false);
     const [updateDialogOpened, setUpdateDialogOpened] = useState<any | null>(null);
-    const [deleteDialogOpened, setDeleteDialogOpened] = useState<any | null>(null);
+
     const [rowsPerPage, setRowsPerPage] = useState<number>(DEFAULT_PAGE_SIZE);
 
     const handleChangePage = (event: React.MouseEvent<HTMLButtonElement, MouseEvent> | null, newPage: number) => {
@@ -42,24 +41,20 @@ const CreateSubAdminPage = () => {
         setPage(0);
     };
 
-    async function createSubAdminAsync(data: any) {
+    async function createSiteAsync(data: any) {
         alert(JSON.stringify(data, null, 2));
         setCreateDialogOpened(false);
     }
 
-    async function updateSubAdminAsync(data: any) {
+    async function updateSiteAsync(data: any) {
         alert(JSON.stringify(data, null, 2));
         setCreateDialogOpened(false);
-    }
-
-    async function deleteSubadminAsync(SubadminToDelete: any) {
-        alert('delete');
     }
 
     return (
-        <>
+        <div>
             <CustomCard
-                title={'create Sub Admin'}
+                title={'Sites'}
                 sx={{
                     mb: '1.55rem',
                     p: 3,
@@ -69,7 +64,7 @@ const CreateSubAdminPage = () => {
                 }}
             >
                 <Typography fontWeight={500} fontSize={'1.125rem'}>
-                    {'Create Sub Admin'}
+                    {'Sites'}
                 </Typography>
                 <Button
                     color="secondary"
@@ -107,8 +102,9 @@ const CreateSubAdminPage = () => {
                     >
                         <TableHead>
                             <TableRow>
-                                <TableCell align="left">Admin name</TableCell>
-                                <TableCell align="left">Email</TableCell>
+                                <TableCell align="left">Name</TableCell>
+                                <TableCell align="left">Description</TableCell>
+                                <TableCell align="left">Site Id</TableCell>
                                 <TableCell align="left">Status</TableCell>
                                 <TableCell align="left">Created At</TableCell>
                                 <TableCell sx={{ pr: 2 }} align="right">
@@ -120,56 +116,22 @@ const CreateSubAdminPage = () => {
                             <TableRow>
                                 <TableCell scope="row" align="left">
                                     <Typography align="left" variant="subtitle1" component="div">
-                                        {'Alex'}
+                                        {'WhareHouse'}
                                     </Typography>
                                 </TableCell>
                                 <TableCell scope="row" align="left">
                                     <Typography align="left" variant="subtitle1" component="div">
-                                        {'Alex@gmail.com'}
+                                        {'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem .'}
                                     </Typography>
                                 </TableCell>
-
+                                <TableCell scope="row" align="left">
+                                    <Typography align="left" variant="subtitle1" component="div">
+                                        {'AF-1055'}
+                                    </Typography>
+                                </TableCell>
                                 <TableCell scope="row" align="left">
                                     <Typography align="left" variant="subtitle1" component="div">
                                         <Chip label={'Active'} chipcolor={'success'} size="small" />
-                                    </Typography>
-                                </TableCell>
-                                <TableCell scope="row" align="left">
-                                    <Typography align="left" variant="subtitle1" component="div">
-                                        {'05/11/23'}
-                                    </Typography>
-                                </TableCell>
-                                <TableCell sx={{ whiteSpace: 'nowrap' }} align="right">
-                                    <SmallWidthTooltip title="Edit" placement="top" arrow>
-                                        <span>
-                                            <IconButton color="secondary">
-                                                <EditTwoToneIcon onClick={() => setUpdateDialogOpened(true)} />
-                                            </IconButton>
-                                        </span>
-                                    </SmallWidthTooltip>
-
-                                    <SmallWidthTooltip title="Delete" placement="top" arrow>
-                                        <IconButton>
-                                            <DeleteOutlineOutlinedIcon onClick={() => setDeleteDialogOpened(true)} />
-                                        </IconButton>
-                                    </SmallWidthTooltip>
-                                </TableCell>
-                            </TableRow>
-                            <TableRow>
-                                <TableCell scope="row" align="left">
-                                    <Typography align="left" variant="subtitle1" component="div">
-                                        {'Author'}
-                                    </Typography>
-                                </TableCell>
-                                <TableCell scope="row" align="left">
-                                    <Typography align="left" variant="subtitle1" component="div">
-                                        {'Author@gmail.com'}
-                                    </Typography>
-                                </TableCell>
-
-                                <TableCell scope="row" align="left">
-                                    <Typography align="left" variant="subtitle1" component="div">
-                                        <Chip label={'Inactive'} chipcolor={'error'} size="small" />
                                     </Typography>
                                 </TableCell>
                                 <TableCell scope="row" align="left">
@@ -206,27 +168,19 @@ const CreateSubAdminPage = () => {
                     onRowsPerPageChange={handleChangeRowsPerPage}
                 />
             </MainCard>
-            <CreateSubAdminDialog
+            <CreateSiteDialog
                 open={createDialogOpened}
                 handleClose={() => setCreateDialogOpened(false)}
-                onSubmit={(data: any) => createSubAdminAsync(data)}
+                onSubmit={(data: any) => createSiteAsync(data)}
             />
-            <UpdateSubAdminDialog
+            <UpdateSiteDialog
                 open={!!updateDialogOpened}
                 handleClose={() => setUpdateDialogOpened(null)}
-                onSubmit={(data: any) => updateSubAdminAsync(data)}
-                details={updateDialogOpened || ({} as any)}
+                onSubmit={(data: any) => updateSiteAsync(data)}
+                site={updateDialogOpened || ({} as any)}
             />
-            <DeleteConfirmationDialog
-                open={!!deleteDialogOpened}
-                handleClose={() => {
-                    setDeleteDialogOpened(null);
-                }}
-                deleteItem={deleteSubadminAsync}
-                details={deleteDialogOpened || ({} as any)}
-            />
-        </>
+        </div>
     );
 };
 
-export default CreateSubAdminPage;
+export default SitesPage;

@@ -42,7 +42,8 @@ export const AuthProvider = ({ children }: { children: React.ReactElement }) => 
                             id: decodedToken.id,
                             email: decodedToken.email,
                             name: decodedToken.name,
-                            roleId: decodedToken.roleId
+                            roleId: decodedToken.roleId,
+                            role: 'admin'
                         }
                     }
                 });
@@ -97,7 +98,8 @@ export const AuthProvider = ({ children }: { children: React.ReactElement }) => 
                         id: decodedToken.id,
                         email: decodedToken.email,
                         name: decodedToken.firstname + ' ' + decodedToken.lastname,
-                        roleId: decodedToken.roleId
+                        roleId: decodedToken.roleId,
+                        role: 'admin'
                     }
                 }
             });

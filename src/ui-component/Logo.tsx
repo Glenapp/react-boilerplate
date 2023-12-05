@@ -19,7 +19,7 @@ import { Box } from '@mui/system';
 const Logo = () => {
     return (
         <Box>
-            <img src={backgroundImg} alt="backhead" style={{ left: 0, position: 'absolute', top: 0 }} height={85} />
+            {/* <img src={backgroundImg} alt="backhead" style={{ left: 0, position: 'absolute', top: 0 }} height={85} /> */}
             <img src={logo} alt="unilever" height={50} style={{ zIndex: 2, position: 'relative' }} />
         </Box>
     );

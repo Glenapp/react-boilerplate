@@ -42,7 +42,7 @@ const Header = () => {
                 <Box component="span" sx={{ display: { xs: 'none', md: 'flex' }, flexGrow: 1 }}>
                     <LogoSection />
                     <Typography variant="h4" sx={{ ml: 2, zIndex: 2, color: 'white', mt: 1 }}>
-                        Unilever Finance
+                        Digital LTO
                     </Typography>
                 </Box>
                 {(layout === LAYOUT_CONST.VERTICAL_LAYOUT || (layout === LAYOUT_CONST.HORIZONTAL_LAYOUT && matchDownMd)) && (

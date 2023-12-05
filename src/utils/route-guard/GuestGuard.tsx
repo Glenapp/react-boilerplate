@@ -2,9 +2,9 @@ import { useNavigate } from 'react-router-dom';
 
 // project imports
 import useAuth from 'hooks/useAuth';
-import { DASHBOARD_PATH } from 'config';
 import { GuardProps } from 'types';
 import { useEffect } from 'react';
+import getRouteForRole from 'utils/route.utils';
 
 /**
  * Guest guard for routes having no auth required
@@ -12,14 +12,15 @@ import { useEffect } from 'react';
  */
 
 const GuestGuard = ({ children }: GuardProps) => {
-    const { isLoggedIn } = useAuth();
+    const { isLoggedIn, user } = useAuth();
     const navigate = useNavigate();
 
     useEffect(() => {
         if (isLoggedIn) {
-            navigate(DASHBOARD_PATH, { replace: true });
+            const route = getRouteForRole(user?.role);
+            navigate(route, { replace: true });
         }
-    }, [isLoggedIn, navigate]);
+    }, [isLoggedIn, navigate, user]);
 
     return children;
 };

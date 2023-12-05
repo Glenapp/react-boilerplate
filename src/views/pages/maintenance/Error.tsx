@@ -17,6 +17,8 @@ import imageDarkBackground from 'assets/images/maintenance/img-error-bg-dark.svg
 import imageBlue from 'assets/images/maintenance/img-error-blue.svg';
 import imageText from 'assets/images/maintenance/img-error-text.svg';
 import imagePurple from 'assets/images/maintenance/img-error-purple.svg';
+import useAuth from 'hooks/useAuth';
+import getRouteForRole from 'utils/route.utils';
 
 // styles
 const CardMediaWrapper = styled('div')({
@@ -66,6 +68,7 @@ const CardMediaPurple = styled('img')({
 
 const Error = () => {
     const theme = useTheme();
+    const { user } = useAuth();
 
     return (
         <ErrorCard>
@@ -98,7 +101,7 @@ const Error = () => {
                                 </Grid>
                                 <Grid item xs={12}>
                                     <AnimateButton>
-                                        <Button variant="contained" size="large" component={Link} to={DASHBOARD_PATH}>
+                                        <Button variant="contained" size="large" component={Link} to={getRouteForRole(user?.role)}>
                                             <HomeTwoToneIcon sx={{ fontSize: '1.3rem', mr: 0.75 }} /> Home
                                         </Button>
                                     </AnimateButton>

@@ -29,6 +29,7 @@ export interface MainCardProps extends KeyedObject {
     shadow?: string | number;
     elevation?: number;
     title?: React.ReactNode | string;
+    smallTitle?: boolean;
 }
 
 const MainCard = React.forwardRef(
@@ -45,6 +46,7 @@ const MainCard = React.forwardRef(
             shadow,
             sx = {},
             title,
+            smallTitle,
             ...others
         }: MainCardProps,
         ref: Ref<HTMLDivElement>
@@ -70,7 +72,11 @@ const MainCard = React.forwardRef(
                 {/* card header and action */}
                 {!darkTitle && title && <CardHeader sx={headerSX} title={title} action={secondary} />}
                 {darkTitle && title && (
-                    <CardHeader sx={headerSX} title={<Typography variant="h3">{title}</Typography>} action={secondary} />
+                    <CardHeader
+                        sx={headerSX}
+                        title={<Typography variant={!smallTitle ? 'h3' : 'subtitle2'}>{title}</Typography>}
+                        action={secondary}
+                    />
                 )}
 
                 {/* content & header divider */}

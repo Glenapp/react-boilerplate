@@ -17,7 +17,7 @@ const AuthenticationRoutes = {
     element: <MinimalLayout />,
     children: [
         {
-            path: '/pages/error',
+            path: '*',
             element: <MaintenanceError />
         },
         {

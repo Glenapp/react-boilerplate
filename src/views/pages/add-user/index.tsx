@@ -20,12 +20,18 @@ import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
 
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteTwoTone';
 import { DEFAULT_PAGE_SIZE, INITIAL_PAGE, ROWS_PER_PAGE_OPTIONS } from 'constant';
+import AddUserDialog from './components/AddUserDialog';
+import UpdateUserDialog from './components/UpdateUserDialog';
+import DeleteConfirmationDialog from 'ui-component/common/DeleteConfirmationDialog';
 
 const AddUserPage = () => {
     const [page, setPage] = useState<number>(INITIAL_PAGE);
 
     const [rowsPerPage, setRowsPerPage] = useState<number>(DEFAULT_PAGE_SIZE);
 
+    const [createDialogOpened, setCreateDialogOpened] = useState<boolean>(false);
+    const [updateDialogOpened, setUpdateDialogOpened] = useState<any | null>(null);
+    const [deleteDialogOpened, setDeleteDialogOpened] = useState<any | null>(null);
     const handleChangePage = (event: React.MouseEvent<HTMLButtonElement, MouseEvent> | null, newPage: number) => {
         setPage(newPage);
     };
@@ -35,6 +41,20 @@ const AddUserPage = () => {
         setRowsPerPage(rowLimit);
         setPage(0);
     };
+
+    async function addUserAsync(data: any) {
+        alert(JSON.stringify(data, null, 2));
+        setCreateDialogOpened(false);
+    }
+
+    async function updateUserAsync(data: any) {
+        alert(JSON.stringify(data, null, 2));
+        setCreateDialogOpened(false);
+    }
+
+    async function deleteUserAsync(data: any) {
+        alert('delete');
+    }
     return (
         <div>
             <CustomCard
@@ -63,9 +83,9 @@ const AddUserPage = () => {
                         boxShadow: '0px 1.97516px 13.16774px 0px rgba(0, 0, 0, 0.02)',
                         borderRadius: '12px'
                     }}
-                    // onClick={() => {
-                    //     setCreateDialogOpened(true);
-                    // }}
+                    onClick={() => {
+                        setCreateDialogOpened(true);
+                    }}
                 >
                     Add New
                 </Button>
@@ -128,14 +148,22 @@ const AddUserPage = () => {
                                     <SmallWidthTooltip title="Edit" placement="top" arrow>
                                         <span>
                                             <IconButton color="secondary">
-                                                <EditTwoToneIcon />
+                                                <EditTwoToneIcon
+                                                    onClick={() => {
+                                                        setUpdateDialogOpened(true);
+                                                    }}
+                                                />
                                             </IconButton>
                                         </span>
                                     </SmallWidthTooltip>
 
                                     <SmallWidthTooltip title="Delete" placement="top" arrow>
                                         <IconButton>
-                                            <DeleteOutlineOutlinedIcon />
+                                            <DeleteOutlineOutlinedIcon
+                                                onClick={() => {
+                                                    setDeleteDialogOpened(true);
+                                                }}
+                                            />
                                         </IconButton>
                                     </SmallWidthTooltip>
                                 </TableCell>
@@ -170,14 +198,22 @@ const AddUserPage = () => {
                                     <SmallWidthTooltip title="Edit" placement="top" arrow>
                                         <span>
                                             <IconButton color="secondary">
-                                                <EditTwoToneIcon />
+                                                <EditTwoToneIcon
+                                                    onClick={() => {
+                                                        setUpdateDialogOpened(true);
+                                                    }}
+                                                />
                                             </IconButton>
                                         </span>
                                     </SmallWidthTooltip>
 
                                     <SmallWidthTooltip title="Delete" placement="top" arrow>
                                         <IconButton>
-                                            <DeleteOutlineOutlinedIcon />
+                                            <DeleteOutlineOutlinedIcon
+                                                onClick={() => {
+                                                    setDeleteDialogOpened(true);
+                                                }}
+                                            />
                                         </IconButton>
                                     </SmallWidthTooltip>
                                 </TableCell>
@@ -195,6 +231,25 @@ const AddUserPage = () => {
                     onRowsPerPageChange={handleChangeRowsPerPage}
                 />
             </MainCard>
+            <AddUserDialog
+                open={createDialogOpened}
+                handleClose={() => setCreateDialogOpened(false)}
+                onSubmit={(data: any) => addUserAsync(data)}
+            />
+            <UpdateUserDialog
+                open={!!updateDialogOpened}
+                handleClose={() => setUpdateDialogOpened(null)}
+                onSubmit={(data: any) => updateUserAsync(data)}
+                details={updateDialogOpened || ({} as any)}
+            />
+            <DeleteConfirmationDialog
+                open={!!deleteDialogOpened}
+                handleClose={() => {
+                    setDeleteDialogOpened(null);
+                }}
+                deleteItem={deleteUserAsync}
+                details={deleteDialogOpened || ({} as any)}
+            />
         </div>
     );
 };

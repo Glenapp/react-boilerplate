@@ -21,13 +21,15 @@ import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteTwoTone';
 import { DEFAULT_PAGE_SIZE, INITIAL_PAGE, ROWS_PER_PAGE_OPTIONS } from 'constant';
 import { useState } from 'react';
-import CreateSiteDialog from './Components/CreateSiteDialog';
-import UpdateSiteDialog from './Components/UpdateSiteDialog';
+import CreateSiteDialog from './components/CreateSiteDialog';
+import UpdateSiteDialog from './components/UpdateSiteDialog';
+import DeleteConfirmationDialog from 'ui-component/common/DeleteConfirmationDialog';
 
 const SitesPage = () => {
     const [page, setPage] = useState<number>(INITIAL_PAGE);
     const [createDialogOpened, setCreateDialogOpened] = useState<boolean>(false);
     const [updateDialogOpened, setUpdateDialogOpened] = useState<any | null>(null);
+    const [deleteDialogOpened, setDeleteDialogOpened] = useState<any | null>(null);
 
     const [rowsPerPage, setRowsPerPage] = useState<number>(DEFAULT_PAGE_SIZE);
 
@@ -49,6 +51,10 @@ const SitesPage = () => {
     async function updateSiteAsync(data: any) {
         alert(JSON.stringify(data, null, 2));
         setCreateDialogOpened(false);
+    }
+
+    async function deleteSiteAsync(data: any) {
+        alert('delete');
     }
 
     return (
@@ -150,7 +156,7 @@ const SitesPage = () => {
 
                                     <SmallWidthTooltip title="Delete" placement="top" arrow>
                                         <IconButton>
-                                            <DeleteOutlineOutlinedIcon />
+                                            <DeleteOutlineOutlinedIcon onClick={() => setDeleteDialogOpened(true)} />
                                         </IconButton>
                                     </SmallWidthTooltip>
                                 </TableCell>
@@ -178,6 +184,14 @@ const SitesPage = () => {
                 handleClose={() => setUpdateDialogOpened(null)}
                 onSubmit={(data: any) => updateSiteAsync(data)}
                 site={updateDialogOpened || ({} as any)}
+            />
+            <DeleteConfirmationDialog
+                open={!!deleteDialogOpened}
+                handleClose={() => {
+                    setDeleteDialogOpened(null);
+                }}
+                deleteItem={deleteSiteAsync}
+                details={deleteDialogOpened || ({} as any)}
             />
         </div>
     );

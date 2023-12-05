@@ -20,18 +20,19 @@ import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
 
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteTwoTone';
 import { DEFAULT_PAGE_SIZE, INITIAL_PAGE, ROWS_PER_PAGE_OPTIONS } from 'constant';
-import AddRolesDialog from './components/AddRolesDialog';
-import UpdateRolesDialog from './components/UpdateRolesDialog';
-import DeleteConfirmationDialog from 'ui-component/common/DeleteConfirmationDialog';
 
-const RolesPage = () => {
+import DeleteConfirmationDialog from 'ui-component/common/DeleteConfirmationDialog';
+import AddTrainingDialog from './components/AddTrainingDialog';
+import UpdateTrainingDialog from './components/UpdateTrainingDialog';
+
+const TrainingPage = () => {
     const [page, setPage] = useState<number>(INITIAL_PAGE);
 
     const [rowsPerPage, setRowsPerPage] = useState<number>(DEFAULT_PAGE_SIZE);
+
     const [createDialogOpened, setCreateDialogOpened] = useState<boolean>(false);
     const [updateDialogOpened, setUpdateDialogOpened] = useState<any | null>(null);
     const [deleteDialogOpened, setDeleteDialogOpened] = useState<any | null>(null);
-
     const handleChangePage = (event: React.MouseEvent<HTMLButtonElement, MouseEvent> | null, newPage: number) => {
         setPage(newPage);
     };
@@ -42,23 +43,23 @@ const RolesPage = () => {
         setPage(0);
     };
 
-    async function addRolesAsync(data: any) {
+    async function addTrainingAsync(data: any) {
         alert(JSON.stringify(data, null, 2));
         setCreateDialogOpened(false);
     }
 
-    async function updateRolesAsync(data: any) {
+    async function updateTrainingAsync(data: any) {
         alert(JSON.stringify(data, null, 2));
         setCreateDialogOpened(false);
     }
 
-    async function deleteRolesAsync(data: any) {
+    async function deleteTrainingAsync(data: any) {
         alert('delete');
     }
     return (
         <div>
             <CustomCard
-                title={'Add Roles'}
+                title={'Add Training'}
                 sx={{
                     mb: '1.55rem',
                     p: 3,
@@ -68,7 +69,7 @@ const RolesPage = () => {
                 }}
             >
                 <Typography fontWeight={500} fontSize={'1.125rem'}>
-                    {'Roles'}
+                    {'Add Training'}
                 </Typography>
                 <Button
                     color="secondary"
@@ -106,8 +107,10 @@ const RolesPage = () => {
                     >
                         <TableHead>
                             <TableRow>
-                                <TableCell align="left">Role Name</TableCell>
-                                <TableCell align="left">Status</TableCell>
+                                <TableCell align="left">Name</TableCell>
+                                <TableCell align="left">Description</TableCell>
+                                <TableCell align="left">Role</TableCell>
+                                <TableCell align="left">Link</TableCell>
                                 <TableCell align="left">Created At</TableCell>
                                 <TableCell sx={{ pr: 2 }} align="right">
                                     Actions
@@ -118,46 +121,22 @@ const RolesPage = () => {
                             <TableRow>
                                 <TableCell scope="row" align="left">
                                     <Typography align="left" variant="subtitle1" component="div">
-                                        {'H R'}
-                                    </Typography>
-                                </TableCell>
-
-                                <TableCell scope="row" align="left">
-                                    <Typography align="left" variant="subtitle1" component="div">
-                                        <Chip label={'Active'} chipcolor={'success'} size="small" />
+                                        {'supportive'}
                                     </Typography>
                                 </TableCell>
                                 <TableCell scope="row" align="left">
                                     <Typography align="left" variant="subtitle1" component="div">
-                                        {'05/12/23'}
+                                        {'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem .'}
                                     </Typography>
                                 </TableCell>
-                                <TableCell sx={{ whiteSpace: 'nowrap' }} align="right">
-                                    <SmallWidthTooltip title="Edit" placement="top" arrow>
-                                        <span>
-                                            <IconButton color="secondary">
-                                                <EditTwoToneIcon onClick={() => setUpdateDialogOpened(true)} />
-                                            </IconButton>
-                                        </span>
-                                    </SmallWidthTooltip>
-
-                                    <SmallWidthTooltip title="Delete" placement="top" arrow>
-                                        <IconButton>
-                                            <DeleteOutlineOutlinedIcon onClick={() => setDeleteDialogOpened(true)} />
-                                        </IconButton>
-                                    </SmallWidthTooltip>
-                                </TableCell>
-                            </TableRow>
-                            <TableRow>
                                 <TableCell scope="row" align="left">
                                     <Typography align="left" variant="subtitle1" component="div">
-                                        {'safety Manager'}
+                                        {'line - manager'}
                                     </Typography>
                                 </TableCell>
-
                                 <TableCell scope="row" align="left">
                                     <Typography align="left" variant="subtitle1" component="div">
-                                        <Chip label={'Inactive'} chipcolor={'error'} size="small" />
+                                        https://i.imgur.com/028YhHR.png
                                     </Typography>
                                 </TableCell>
                                 <TableCell scope="row" align="left">
@@ -194,15 +173,15 @@ const RolesPage = () => {
                     onRowsPerPageChange={handleChangeRowsPerPage}
                 />
             </MainCard>
-            <AddRolesDialog
+            <AddTrainingDialog
                 open={createDialogOpened}
                 handleClose={() => setCreateDialogOpened(false)}
-                onSubmit={(data: any) => addRolesAsync(data)}
+                onSubmit={(data: any) => addTrainingAsync(data)}
             />
-            <UpdateRolesDialog
+            <UpdateTrainingDialog
                 open={!!updateDialogOpened}
                 handleClose={() => setUpdateDialogOpened(null)}
-                onSubmit={(data: any) => updateRolesAsync(data)}
+                onSubmit={(data: any) => updateTrainingAsync(data)}
                 details={updateDialogOpened || ({} as any)}
             />
             <DeleteConfirmationDialog
@@ -210,11 +189,11 @@ const RolesPage = () => {
                 handleClose={() => {
                     setDeleteDialogOpened(null);
                 }}
-                deleteItem={deleteRolesAsync}
+                deleteItem={deleteTrainingAsync}
                 details={deleteDialogOpened || ({} as any)}
             />
         </div>
     );
 };
 
-export default RolesPage;
+export default TrainingPage;

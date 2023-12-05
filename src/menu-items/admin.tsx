@@ -65,17 +65,33 @@ const admin: NavItemType = {
         {
             id: 'Qa',
             title: 'Q & a',
-            type: 'item',
-            url: '/admin/qa-categories',
+            type: 'collapse',
             icon: icons.IconQuestionMark,
-            breadcrumbs: false
+            breadcrumbs: false,
+            children: [
+                {
+                    id: 'categories',
+                    title: 'Categories',
+                    type: 'item',
+                    url: '/admin/qa-categories/categories',
+                    breadcrumbs: false
+                },
+                {
+                    id: 'question',
+                    title: 'Ques/Ans',
+                    type: 'item',
+                    url: '/admin/qa-categories/question',
+                    breadcrumbs: false
+                }
+            ]
         },
         {
             id: 'training',
             title: 'Training',
             type: 'item',
-            url: '/admin/trainings-roles',
-            icon: icons.IconStretching
+            url: '/admin/training',
+            icon: icons.IconStretching,
+            breadcrumbs: false
         }
     ]
 };

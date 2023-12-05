@@ -20,8 +20,8 @@ import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
 
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteTwoTone';
 import { DEFAULT_PAGE_SIZE, INITIAL_PAGE, ROWS_PER_PAGE_OPTIONS } from 'constant';
-import CreateSubAdminDialog from './Components/CreateSubAdminDialog';
-import UpdateSubAdminDialog from './Components/UpdateSubAdminDialog';
+import CreateSubAdminDialog from './components/CreateSubAdminDialog';
+import UpdateSubAdminDialog from './components/UpdateSubAdminDialog';
 import DeleteConfirmationDialog from 'ui-component/common/DeleteConfirmationDialog';
 
 const CreateSubAdminPage = () => {

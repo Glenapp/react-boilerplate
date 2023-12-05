@@ -1,27 +1,42 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Divider, Grid, TextField } from '@mui/material';
+import {
+    Button,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogTitle,
+    Divider,
+    FormControl,
+    FormControlLabel,
+    FormLabel,
+    Grid,
+    Radio,
+    RadioGroup,
+    TextField
+} from '@mui/material';
 import { useFormik } from 'formik';
 import { useEffect } from 'react';
 import * as Yup from 'yup';
 import { Stack } from '@mui/system';
 
-const UpdateSiteDialog = ({
+const CreateSiteDialog = ({
     open,
     handleClose,
-    onSubmit,
-    site
+    onSubmit
 }: {
     open: boolean;
     handleClose: VoidFunction;
     onSubmit: (sitedetails: any) => void;
-    site: any;
 }) => {
     const { errors, handleBlur, handleChange, handleSubmit, touched, values, resetForm, isValid } = useFormik({
         initialValues: {
             name: '',
-            description: ''
+            description: '',
+            status: 'active',
+            siteId: ''
         },
         validationSchema: Yup.object().shape({
-            name: Yup.string().trim().required(` Name is required`)
+            name: Yup.string().trim().required(` Name is required`),
+            siteId: Yup.string().trim().required('Site ID is required')
         }),
         onSubmit: (formData) => {
             onSubmit({
@@ -32,13 +47,8 @@ const UpdateSiteDialog = ({
     });
 
     useEffect(() => {
-        if (open) {
-            // resetForm({
-            //     values: {
-            // name: '',
-            // description: ''
-            //     }
-            // });  for sett the onload value
+        if (!open) {
+            resetForm();
         }
         // eslint-disable-next-line
     }, [open]);
@@ -48,7 +58,7 @@ const UpdateSiteDialog = ({
             <form noValidate onSubmit={handleSubmit}>
                 {open && (
                     <>
-                        <DialogTitle id="form-dialog-title">Update Site</DialogTitle>
+                        <DialogTitle id="form-dialog-title">Add Site</DialogTitle>
                         <Divider />
                         <DialogContent sx={{ p: 3 }}>
                             <Grid container spacing={3}>
@@ -71,6 +81,22 @@ const UpdateSiteDialog = ({
                                 <Grid item xs={12}>
                                     <TextField
                                         fullWidth
+                                        required
+                                        label="Site ID"
+                                        id="siteId"
+                                        type="text"
+                                        value={values.siteId}
+                                        name="siteId"
+                                        autoFocus
+                                        autoComplete="off"
+                                        onBlur={handleBlur}
+                                        onChange={handleChange}
+                                        error={Boolean(touched.siteId && errors.siteId)}
+                                    />
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <TextField
+                                        fullWidth
                                         multiline
                                         rows={4}
                                         label={`Description`}
@@ -82,6 +108,15 @@ const UpdateSiteDialog = ({
                                         onChange={handleChange}
                                     />
                                 </Grid>
+                                <Grid item xs={12}>
+                                    <FormControl component="fieldset">
+                                        <FormLabel component="legend">Status</FormLabel>
+                                        <RadioGroup row aria-label="status" name="status" value={values.status} onChange={handleChange}>
+                                            <FormControlLabel value="active" control={<Radio />} label="Active" />
+                                            <FormControlLabel value="inactive" control={<Radio />} label="Inactive" />
+                                        </RadioGroup>
+                                    </FormControl>
+                                </Grid>
                             </Grid>
                         </DialogContent>
                         <DialogActions sx={{ p: 3, pt: 0 }}>
@@ -92,7 +127,7 @@ const UpdateSiteDialog = ({
                                             Cancel
                                         </Button>
                                         <Button type="submit" variant="contained" color="secondary" disabled={!isValid}>
-                                            Update
+                                            Save
                                         </Button>
                                     </Stack>
                                 </Grid>
@@ -105,4 +140,4 @@ const UpdateSiteDialog = ({
     );
 };
 
-export default UpdateSiteDialog;
+export default CreateSiteDialog;

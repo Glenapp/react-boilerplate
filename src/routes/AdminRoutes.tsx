@@ -7,10 +7,12 @@ import AdminGuard from 'utils/route-guard/AdminGuard';
 
 const SubAdminPage = Loadable(lazy(() => import('views/pages/create-subadmin')));
 const SitesPage = Loadable(lazy(() => import('views/pages/sites')));
-const QuestionAnswerPage = Loadable(lazy(() => import('views/pages/qa-categories')));
+const QuestionAnswerPage = Loadable(lazy(() => import('views/pages/qa-categories/question')));
+const CategoriesPage = Loadable(lazy(() => import('views/pages/qa-categories/categories')));
 const RolesPage = Loadable(lazy(() => import('views/pages/roles')));
 const AddUserPage = Loadable(lazy(() => import('views/pages/add-user')));
 const DeclarationFormPage = Loadable(lazy(() => import('views/pages/declaration-form')));
+const TrainingPage = Loadable(lazy(() => import('views/pages/training')));
 
 // ==============================|| MAIN ROUTING ||============================== //
 
@@ -31,8 +33,12 @@ const AdminRoutes = {
             element: <SitesPage />
         },
         {
-            path: `/admin/qa-categories`,
+            path: `/admin/qa-categories/question`,
             element: <QuestionAnswerPage />
+        },
+        {
+            path: `/admin/qa-categories/categories`,
+            element: <CategoriesPage />
         },
         {
             path: '/admin/roles',
@@ -45,6 +51,10 @@ const AdminRoutes = {
         {
             path: '/admin/declaration-form',
             element: <DeclarationFormPage />
+        },
+        {
+            path: '/admin/training',
+            element: <TrainingPage />
         }
     ]
 };

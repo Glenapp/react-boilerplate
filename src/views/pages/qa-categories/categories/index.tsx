@@ -11,26 +11,27 @@ import {
     TableRow,
     Typography
 } from '@mui/material';
-import React, { useState } from 'react';
 import MainCard from 'ui-component/cards/MainCard';
 import CustomCard from 'ui-component/common/CustomCard';
 import SmallWidthTooltip from 'ui-component/common/SmallWidthTooltip';
 import Chip from 'ui-component/extended/Chip';
+
 import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
 
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteTwoTone';
 import { DEFAULT_PAGE_SIZE, INITIAL_PAGE, ROWS_PER_PAGE_OPTIONS } from 'constant';
-import AddRolesDialog from './components/AddRolesDialog';
-import UpdateRolesDialog from './components/UpdateRolesDialog';
+import { useState } from 'react';
 import DeleteConfirmationDialog from 'ui-component/common/DeleteConfirmationDialog';
+import AddCategoryDialog from './components/AddCategoryDialog';
+import UpdateCategoryDialog from './components/updateCategoryDialog';
 
-const RolesPage = () => {
+const CategoriesPage = () => {
     const [page, setPage] = useState<number>(INITIAL_PAGE);
-
-    const [rowsPerPage, setRowsPerPage] = useState<number>(DEFAULT_PAGE_SIZE);
     const [createDialogOpened, setCreateDialogOpened] = useState<boolean>(false);
     const [updateDialogOpened, setUpdateDialogOpened] = useState<any | null>(null);
     const [deleteDialogOpened, setDeleteDialogOpened] = useState<any | null>(null);
+
+    const [rowsPerPage, setRowsPerPage] = useState<number>(DEFAULT_PAGE_SIZE);
 
     const handleChangePage = (event: React.MouseEvent<HTMLButtonElement, MouseEvent> | null, newPage: number) => {
         setPage(newPage);
@@ -42,23 +43,23 @@ const RolesPage = () => {
         setPage(0);
     };
 
-    async function addRolesAsync(data: any) {
+    async function addCategoryAsync(data: any) {
         alert(JSON.stringify(data, null, 2));
         setCreateDialogOpened(false);
     }
 
-    async function updateRolesAsync(data: any) {
+    async function updateCategoryAsync(data: any) {
         alert(JSON.stringify(data, null, 2));
         setCreateDialogOpened(false);
     }
 
-    async function deleteRolesAsync(data: any) {
+    async function deleteCategoryAsync(data: any) {
         alert('delete');
     }
     return (
         <div>
             <CustomCard
-                title={'Add Roles'}
+                title={'categories'}
                 sx={{
                     mb: '1.55rem',
                     p: 3,
@@ -68,7 +69,7 @@ const RolesPage = () => {
                 }}
             >
                 <Typography fontWeight={500} fontSize={'1.125rem'}>
-                    {'Roles'}
+                    {'Categories'}
                 </Typography>
                 <Button
                     color="secondary"
@@ -106,7 +107,7 @@ const RolesPage = () => {
                     >
                         <TableHead>
                             <TableRow>
-                                <TableCell align="left">Role Name</TableCell>
+                                <TableCell align="left">Name</TableCell>
                                 <TableCell align="left">Status</TableCell>
                                 <TableCell align="left">Created At</TableCell>
                                 <TableCell sx={{ pr: 2 }} align="right">
@@ -118,46 +119,12 @@ const RolesPage = () => {
                             <TableRow>
                                 <TableCell scope="row" align="left">
                                     <Typography align="left" variant="subtitle1" component="div">
-                                        {'H R'}
+                                        {'WhareHouse'}
                                     </Typography>
                                 </TableCell>
-
                                 <TableCell scope="row" align="left">
                                     <Typography align="left" variant="subtitle1" component="div">
                                         <Chip label={'Active'} chipcolor={'success'} size="small" />
-                                    </Typography>
-                                </TableCell>
-                                <TableCell scope="row" align="left">
-                                    <Typography align="left" variant="subtitle1" component="div">
-                                        {'05/12/23'}
-                                    </Typography>
-                                </TableCell>
-                                <TableCell sx={{ whiteSpace: 'nowrap' }} align="right">
-                                    <SmallWidthTooltip title="Edit" placement="top" arrow>
-                                        <span>
-                                            <IconButton color="secondary">
-                                                <EditTwoToneIcon onClick={() => setUpdateDialogOpened(true)} />
-                                            </IconButton>
-                                        </span>
-                                    </SmallWidthTooltip>
-
-                                    <SmallWidthTooltip title="Delete" placement="top" arrow>
-                                        <IconButton>
-                                            <DeleteOutlineOutlinedIcon onClick={() => setDeleteDialogOpened(true)} />
-                                        </IconButton>
-                                    </SmallWidthTooltip>
-                                </TableCell>
-                            </TableRow>
-                            <TableRow>
-                                <TableCell scope="row" align="left">
-                                    <Typography align="left" variant="subtitle1" component="div">
-                                        {'safety Manager'}
-                                    </Typography>
-                                </TableCell>
-
-                                <TableCell scope="row" align="left">
-                                    <Typography align="left" variant="subtitle1" component="div">
-                                        <Chip label={'Inactive'} chipcolor={'error'} size="small" />
                                     </Typography>
                                 </TableCell>
                                 <TableCell scope="row" align="left">
@@ -194,27 +161,27 @@ const RolesPage = () => {
                     onRowsPerPageChange={handleChangeRowsPerPage}
                 />
             </MainCard>
-            <AddRolesDialog
+            <AddCategoryDialog
                 open={createDialogOpened}
                 handleClose={() => setCreateDialogOpened(false)}
-                onSubmit={(data: any) => addRolesAsync(data)}
+                onSubmit={(data: any) => addCategoryAsync(data)}
             />
-            <UpdateRolesDialog
+            <UpdateCategoryDialog
                 open={!!updateDialogOpened}
                 handleClose={() => setUpdateDialogOpened(null)}
-                onSubmit={(data: any) => updateRolesAsync(data)}
-                details={updateDialogOpened || ({} as any)}
+                onSubmit={(data: any) => updateCategoryAsync(data)}
+                site={updateDialogOpened || ({} as any)}
             />
             <DeleteConfirmationDialog
                 open={!!deleteDialogOpened}
                 handleClose={() => {
                     setDeleteDialogOpened(null);
                 }}
-                deleteItem={deleteRolesAsync}
+                deleteItem={deleteCategoryAsync}
                 details={deleteDialogOpened || ({} as any)}
             />
         </div>
     );
 };
 
-export default RolesPage;
+export default CategoriesPage;
